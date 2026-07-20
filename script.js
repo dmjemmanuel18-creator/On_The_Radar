@@ -20,15 +20,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 bubble.style.setProperty('--width', `${linkWidth}px`);
                 bubble.style.setProperty('--opacity', '1');
             });
-        });
-
-        nav.addEventListener('mouseleave', () => {
-            bubble.style.setProperty('--opacity', '0');
+            link.addEventListener('mouseleave', () => {
+                bubble.style.setProperty('--opacity', '0');
+            });
         });
     });
 
-    // --- Header color change on scroll ---
     const header = document.querySelector('header');
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNavPanel = document.querySelector('.mobile-nav-panel');
+
+    if (menuToggle && mobileNavPanel) {
+        menuToggle.addEventListener('click', () => {
+            const isOpen = header.classList.toggle('nav-open');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        mobileNavPanel.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                header.classList.remove('nav-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 560) {
+                header.classList.remove('nav-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // --- Header color change on scroll ---
     const heroSection = document.querySelector('.hero');
 
     if (!header || !heroSection) {

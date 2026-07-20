@@ -12,24 +12,32 @@
 
     <header>
         <div class="logo">OTR</div>
-        <nav class="nav main-nav" aria-label="Main Navigation">
-            <div class="liquid-bubble"></div>
-            <a href="#collection">Collection</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <nav class="nav user-nav" aria-label="User Navigation">
-            <div class="liquid-bubble"></div>
-            <a href="#" class="logged-in">Login</a>
-            <a href="#">Register</a>
-            <a href="#" class="cart-link" aria-label="Shopping Cart">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-            </a>
-        </nav>
+        <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+            aria-controls="mobile-nav-panel">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div id="mobile-nav-panel" class="mobile-nav-panel">
+            <nav class="nav main-nav" aria-label="Main Navigation">
+                <div class="liquid-bubble"></div>
+                <a href="#collection">Collection</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <nav class="nav user-nav" aria-label="User Navigation">
+                <div class="liquid-bubble"></div>
+                <a href="#" class="logged-in">Login</a>
+                <a href="signup\signup.html" class="signup-link">Register</a>
+                <a href="#" class="cart-link" aria-label="Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </nav>
+        </div>
     </header>
 
     <main>
@@ -137,5 +145,6 @@
     </main>
 </body>
 <script src="script.js"></script>
+<script type="module" src="firebase-init.js"></script>
 
 </html>
