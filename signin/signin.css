@@ -1,13 +1,8 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    height: 100vh;
-    width: 100vw;
+body.signin-page {
     overflow: hidden;
 }
 
-.signup_header {
+.signin_header {
     left: 25%;
     right: auto;
     transform: translateX(-50%);
@@ -29,7 +24,7 @@ body {
     z-index: -2;
 }
 
-body::after {
+body.signin-page::after {
     content: '';
     position: fixed;
     inset: 0;
@@ -37,7 +32,7 @@ body::after {
     z-index: -1;
 }
 
-.signup-content-wrapper {
+.signin-content-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,7 +42,7 @@ body::after {
     box-sizing: border-box;
 }
 
-.signup-text-panel {
+.signin-text-panel {
     width: 45%;
     max-width: 450px;
 }
@@ -100,7 +95,7 @@ body::after {
     max-width: 380px;
 }
 
-.signup-container {
+.signin-container {
     position: relative;
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
@@ -113,7 +108,7 @@ body::after {
     text-align: center;
 }
 
-.signup-container::before {
+.signin-container::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -124,7 +119,7 @@ body::after {
     box-shadow: inset 2px 2px 0px -2px rgba(255, 255, 255, 0.7), inset 0 0 3px 1px rgba(255, 255, 255, 0.7);
 }
 
-.signup-container::after {
+.signin-container::after {
     content: '';
     position: absolute;
     z-index: -1;
@@ -137,23 +132,23 @@ body::after {
     overflow: hidden;
 }
 
-.signup-container h1 {
+.signin-container h1 {
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
     color: #ccc;
 }
 
-.signup-container .subtitle {
+.signin-container .subtitle {
     margin-bottom: 1.2rem;
     color: #aaa;
 }
 
-.signup-form .form-group {
+.signin-form .form-group {
     margin-bottom: 0.7rem;
     text-align: left;
 }
 
-.signup-form label {
+.signin-form label {
     display: block;
     margin-bottom: 0.4rem;
     font-weight: 600;
@@ -161,7 +156,7 @@ body::after {
     font-size: 0.9rem;
 }
 
-.signup-form input {
+.signin-form input {
     width: 100%;
     padding: 0.6rem;
     border: 1px solid #ddd;
@@ -171,12 +166,12 @@ body::after {
     transition: border-color 0.3s ease;
 }
 
-.signup-form input:focus {
+.signin-form input:focus {
     outline: none;
     border-color: #333;
 }
 
-.signup-button {
+.signin-button {
     width: 100%;
     padding: 0.7rem;
     border: none;
@@ -190,7 +185,7 @@ body::after {
     margin-top: 0.5rem;
 }
 
-.signup-button:hover {
+.signin-button:hover {
     background-color: #333;
 }
 
@@ -217,7 +212,7 @@ body::after {
     color: #aaa;
 }
 
-.google-signup-button {
+.google-signin-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -235,31 +230,15 @@ body::after {
     text-decoration: none;
 }
 
-.google-signup-button:hover {
+.google-signin-button:hover {
     background-color: #f9f9f9;
     border-color: #ccc;
     color: #1a1a1a;
 }
 
-.google-signup-button svg {
+.google-signin-button svg {
     width: 20px;
     height: 20px;
-}
-
-.login-link {
-    margin-top: 1.2rem;
-    font-size: 0.9rem;
-    color: #aaa;
-}
-
-.login-link a {
-    color: #1a1a1a;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
 }
 
 .switch-method-link {
@@ -279,11 +258,11 @@ body::after {
 }
 
 @media (max-width: 768px) {
-    body {
+    body.signin-page {
         overflow-y: auto;
     }
 
-    .signup_header {
+    .signin_header {
         padding: 12px 16px;
         position: static;
         display: flex;
@@ -291,39 +270,30 @@ body::after {
         justify-content: space-between;
     }
 
-    .signup-content-wrapper {
+    .signin-content-wrapper {
         min-height: auto;
         padding: 16px 16px 32px;
         align-items: flex-start;
     }
 
-    .signup-text-panel {
+    .signin-text-panel {
         display: none;
     }
 
-    .signup-container {
+    .signin-container {
         width: 100%;
         max-width: 100%;
         margin: 0;
         padding: 1.25rem 1rem;
     }
 
-    .signup_header .user-nav {
+    .signin_header .user-nav {
         flex-direction: row;
         flex-wrap: nowrap;
         width: auto;
-        gap: 0;
-        justify-content: flex-end;
     }
 
-    .signup_header .user-nav a {
-        padding: 8px 10px;
-        font-size: 0.9em;
-        width: auto;
+    .signin_header .user-nav a {
         border-bottom: none;
-    }
-
-    .signup_header .liquid-bubble {
-        display: none;
     }
 }

@@ -21,6 +21,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
+    background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
 body,
@@ -35,8 +36,8 @@ html {
 body {
     width: 100%;
     overflow-x: hidden;
-    background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
     color: var(--text);
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 a {
@@ -56,9 +57,8 @@ header {
     z-index: 10;
 
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 16px;
 }
 
 .mobile-menu-toggle {
@@ -67,9 +67,9 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 4px;
-    width: 42px;
-    height: 42px;
+    gap: 0px;
+    width: 0px;
+    height: 0px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.12);
@@ -159,14 +159,37 @@ header::after {
     color: #fff;
 }
 
-.cart-link {
+.floating-cart-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 12px 28px rgba(17, 17, 17, 0.24);
+    z-index: 20;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.nav .logged-in {
+.floating-cart-button:hover {
+    transform: translateY(-2px);
+    background: #222;
+}
+
+.floating-cart-button[hidden] {
     display: none;
+}
+
+.nav a.logged-in {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .liquid-bubble {
@@ -572,6 +595,18 @@ footer p {
     color: #9b9b9b;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 900px) {
     header {
         border-radius: 24px;
@@ -639,6 +674,28 @@ footer p {
     .mobile-menu-toggle {
         display: inline-flex;
         visibility: visible;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: currentColor;
+        border-radius: 999px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
     .mobile-nav-panel {
@@ -655,7 +712,7 @@ footer p {
 
     header.nav-open .mobile-nav-panel {
         padding-top: 8px;
-        max-height: 50vh; 
+        max-height: 50vh;
     }
 
     header.nav-open .mobile-menu-toggle span:nth-child(1) {
@@ -672,6 +729,11 @@ footer p {
 
     .mobile-nav-panel .nav {
         display: contents;
+    }
+
+    .main-nav {
+        position: static;
+        transform: none;
     }
 
     .mobile-nav-panel .liquid-bubble {

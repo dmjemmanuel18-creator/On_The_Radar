@@ -17,15 +17,7 @@
         <a href="../index.html" class="logo" style="text-decoration: none;">OTR</a>
         <nav class="nav user-nav" aria-label="User Navigation">
             <div class="liquid-bubble"></div>
-            <a href="#">Login</a>
-            <a href="#" class="cart-link" aria-label="Shopping Cart">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-            </a>
+            <a href="../signin/signin.html">Login</a>
         </nav>
     </header>
 
@@ -86,24 +78,33 @@
             </div>
 
             <div id="phone-signup-section" style="display: none;">
-                <form class="phone-signup-form" action="#" method="POST">
+                <form id="phone-form" class="phone-signup-form" action="#" method="POST">
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" required placeholder="e.g. +1 555-555-5555">
                     </div>
-                    <button type="submit" class="signup-button">Send Verification Code</button>
+                    <div id="recaptcha-container"></div>
+                    <button type="submit" id="send-code-button" class="signup-button">Send Verification Code</button>
+                </form>
+                <form id="verify-form" class="verify-code-form" action="#" method="POST" style="display: none;">
+                    <div class="form-group">
+                        <label for="verification-code">Verification Code</label>
+                        <input type="text" id="verification-code" name="verification-code" required
+                            placeholder="Enter 6-digit code">
+                    </div>
+                    <button type="submit" class="signup-button">Verify & Sign Up</button>
                 </form>
                 <p class="switch-method-link"><a href="#" id="show-email-signup">Back to email signup</a></p>
             </div>
 
             <p class="login-link">
-                Already have an account? <a href="#">Log In</a>
+                Already have an account? <a href="../signin\signin.html">Log In</a>
             </p>
         </div>
     </main>
 
-    <script src="../script.js"></script>
-    <script src="signup.js"></script>
+    <script type="module" src="../script.js"></script>
+    <script type="module" src="signup.js"></script>
 </body>
 
 </html>

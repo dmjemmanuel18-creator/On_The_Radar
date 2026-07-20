@@ -1,4 +1,85 @@
+import { auth } from './firebase-init.js';
+import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
+
+const getDisplayName = (user) => {
+    if (!user) return 'Account';
+
+    const googleProfile = user.providerData?.find((profile) => profile.providerId === 'google.com');
+    const fullName = user.displayName || googleProfile?.displayName || user.email?.split('@')[0] || 'Account';
+
+    return fullName.trim();
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Auth State UI Management ---
+    const loginLink = document.querySelector('.logged-in');
+    const registerLink = document.querySelector('.signup-link');
+    const floatingCartButton = document.querySelector('.floating-cart-button');
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            const displayName = getDisplayName(user);
+
+            // This is the main page with both links
+            if (loginLink && registerLink) {
+                loginLink.textContent = displayName;
+                loginLink.href = '#';
+                loginLink.style.pointerEvents = 'none';
+
+                registerLink.textContent = 'Logout';
+                registerLink.href = '#';
+            }
+
+            if (floatingCartButton) {
+                floatingCartButton.hidden = false;
+            }
+            // This is the signup page with only a login link
+            else if (loginLink) {
+                loginLink.textContent = 'Logout';
+                loginLink.href = '#';
+            }
+        } else {
+            // User is signed out
+            if (loginLink && registerLink) {
+                loginLink.textContent = 'Login';
+                loginLink.href = '#';
+                loginLink.style.pointerEvents = 'auto';
+
+                registerLink.textContent = 'Register';
+                registerLink.href = 'signup/signup.html';
+            } else if (loginLink) {
+                loginLink.textContent = 'Login';
+                loginLink.href = '#';
+            }
+
+            if (floatingCartButton) {
+                floatingCartButton.hidden = true;
+            }
+
+            if (loginLink && registerLink) {
+                loginLink.textContent = 'Login';
+                loginLink.href = '#';
+            }
+        }
+    });
+
+    // Centralized logout handler
+    document.body.addEventListener('click', async (event) => {
+        const link = event.target.closest('a');
+        if (link && link.textContent === 'Logout') {
+            event.preventDefault();
+            try {
+                await signOut(auth);
+                if (window.location.pathname.includes('signup')) {
+                    window.location.href = '../index.html';
+                }
+            } catch (error) {
+                console.error('Sign out failed:', error);
+            }
+        }
+    });
 
     // --- Liquid bubble effect for navigation ---
     const navbars = document.querySelectorAll('.nav');
