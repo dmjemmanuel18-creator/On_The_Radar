@@ -22,4 +22,3 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const analytics = getAnalytics(app);
 
-// Note: It's a good practice to secure your API keys, for example by using environment variables in a production environment.

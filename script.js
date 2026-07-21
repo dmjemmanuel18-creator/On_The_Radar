@@ -31,53 +31,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 registerLink.textContent = 'Logout';
                 registerLink.href = '#';
             }
-
-            if (floatingCartButton) {
-                floatingCartButton.hidden = false;
-            }
             // This is the signup page with only a login link
             else if (loginLink) {
                 loginLink.textContent = 'Logout';
                 loginLink.href = '#';
             }
+
+            if (floatingCartButton) {
+                floatingCartButton.hidden = false;
+            }
         } else {
             // User is signed out
             if (loginLink && registerLink) {
                 loginLink.textContent = 'Login';
-                loginLink.href = '#';
                 loginLink.style.pointerEvents = 'auto';
 
                 registerLink.textContent = 'Register';
-                registerLink.href = 'signup/signup.html';
             } else if (loginLink) {
                 loginLink.textContent = 'Login';
-                loginLink.href = '#';
             }
 
             if (floatingCartButton) {
                 floatingCartButton.hidden = true;
             }
-
-            if (loginLink && registerLink) {
-                loginLink.textContent = 'Login';
-                loginLink.href = '#';
-            }
         }
     });
 
-    // Centralized logout handler
+    // Centralized handler for auth links
     document.body.addEventListener('click', async (event) => {
         const link = event.target.closest('a');
-        if (link && link.textContent === 'Logout') {
+        if (!link) return;
+
+        // Handle logout
+        if (link.textContent === 'Logout') {
             event.preventDefault();
             try {
                 await signOut(auth);
-                if (window.location.pathname.includes('signup')) {
+                // If on an auth page, redirect to home after logout. Otherwise, just stay.
+                if (window.location.pathname.includes('signup/') || window.location.pathname.includes('signin/')) {
                     window.location.href = '../index.html';
                 }
             } catch (error) {
                 console.error('Sign out failed:', error);
             }
+            return;
+        }
+
+        // Handle storing redirect URL for signin/signup
+        const isAuthLink = link.href.includes('signin/signin.html') || link.href.includes('signup/signup.html');
+        if (isAuthLink && !window.location.pathname.match(/(\/signin\/|\/signup\/)/)) {
+            sessionStorage.setItem('redirectUrl', window.location.pathname + window.location.search);
         }
     });
 

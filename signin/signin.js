@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            window.location.href = '../index.html';
+            const redirectUrl = sessionStorage.getItem('redirectUrl') || '../index.html';
+            sessionStorage.removeItem('redirectUrl'); // Clean up after use
+            window.location.href = redirectUrl;
         }
     });
 
@@ -23,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = signinForm.password.value;
 
         try {
+            // The onAuthStateChanged listener will handle the redirect on success.
             await signInWithEmailAndPassword(auth, email, password);
-            window.location.href = '../index.html';
         } catch (error) {
             console.error('Sign in error:', error);
             alert(`Error: ${error.message}`);
@@ -37,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const provider = new GoogleAuthProvider();
 
         try {
+            // The onAuthStateChanged listener will handle the redirect on success.
             await signInWithPopup(auth, provider);
-            window.location.href = '../index.html';
         } catch (error) {
             console.error('Google sign in error:', error);
             alert(`Error: ${error.message}`);

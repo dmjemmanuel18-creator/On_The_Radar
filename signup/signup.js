@@ -21,6 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const phoneForm = document.getElementById('phone-form');
     const verifyForm = document.getElementById('verify-form');
 
+    const handleSuccessfulSignup = (user) => {
+        console.log('Sign up successful:', user);
+        const redirectUrl = sessionStorage.getItem('redirectUrl') || '../index.html';
+        sessionStorage.removeItem('redirectUrl');
+        alert('Sign up successful! Redirecting...');
+        window.location.href = redirectUrl;
+    };
+
     // --- Firebase Auth Setup ---
     window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
         'size': 'invisible',
@@ -62,9 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 await updateProfile(userCredential.user, { displayName: fullName });
             }
 
-            console.log('Signed up successfully:', userCredential.user);
-            alert('Sign up successful! Redirecting...');
-            window.location.href = '../index.html';
+            handleSuccessfulSignup(userCredential.user);
         } catch (error) {
             console.error('Sign up error:', error);
             alert(`Error: ${error.message}`);
@@ -79,9 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         signInWithPopup(auth, provider)
             .then((result) => {
-                console.log('Google sign in successful:', result.user);
-                alert('Google sign in successful! Redirecting...');
-                window.location.href = '../index.html';
+                handleSuccessfulSignup(result.user);
             }).catch((error) => {
                 console.error('Google sign in error:', error);
                 alert(`Error: ${error.message}`);
@@ -118,9 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = verifyForm['verification-code'].value;
 
         window.confirmationResult.confirm(code).then((result) => {
-            console.log('Phone number verified. User:', result.user);
-            alert('Sign up successful! Redirecting...');
-            window.location.href = '../index.html';
+            handleSuccessfulSignup(result.user);
         }).catch((error) => {
             console.error('Verification error:', error);
             alert(`Error verifying code: ${error.message}`);
